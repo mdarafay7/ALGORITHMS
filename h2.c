@@ -22,6 +22,7 @@ int fill(FILE* file)
         int num = (rand() % (end_val - start_val + 1)) + start_val;
         fprintf(file,"%d ",num);
       }
+  fclose(file);
 }
 
 int interpolated_search(int *array,int size,int x,int *reps)
@@ -78,7 +79,8 @@ int binary_search(int *array,int size,int x,int *reps)
 
 void insertion_sort(int *array,int size)
 {
-  for(int i=1;i<size;i++)
+ int i;
+  for(i=1;i<size;i++)
   {
     int key;
     key=array[i];
@@ -181,6 +183,6 @@ int main()
     exit(0);
   }
 }
-//fclose(fp);
+
 }while(choice!=0);
 }
