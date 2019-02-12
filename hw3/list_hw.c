@@ -6,7 +6,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "list_hw.h"
 
 // ------------- Node functions
@@ -172,15 +171,27 @@ link sublist(link A, link pos_list) {
   link temp_sub_list=sub_list;
   link position_parser=pos_list->next;;
   link temp;
+  int position;
+  if((A==NULL||pos_list==NULL)||(compute_length(A)==0||compute_length(pos_list)==0))
+  {
+    destroy_list(sub_list);
+    return NULL;
+  }
   while(position_parser!=NULL)
   {
     temp=A;
-    int position=position_parser->data;
+    position=position_parser->data;
+    if(position<0||position>compute_length(A))
+    {
+      destroy_list(sub_list);
+      return NULL;
+    }
     position_parser=position_parser->next;
-    int i;
-    for(i=0;i<=position;i++)
+    int i=0;
+    while(i<=position&&temp->next!=NULL)
     {
       temp=temp->next;
+      i++;
     }
     link new_insertion=new_node(temp->data,NULL);
     insert_node(temp_sub_list,new_insertion);
@@ -219,10 +230,14 @@ void swap_first_third(link A) {
 }
 
 void delete_occurrences(link A, int V) {
+  if(A==NULL)
+  {
+    return;
+  }
   link prev_value_marker=A;
   link list_parser=A->next;
-  int i;
-  for(i=0;i<compute_length(A);i++)
+  int i=0;
+  while(i<compute_length(A)&&list_parser!=NULL)
   {
     link temp=list_parser;
     if(list_parser->data==V)
@@ -245,5 +260,60 @@ void delete_occurrences(link A, int V) {
 int run_student_tests() {
   printf("\n Running function run_student_test.\n ");
   printf("\n\n--------------------------------------\n");
+  printf("\nWhat Functionality Do You Want to Test ?:\n.)1 for Sublist\n.)2 for delete_occurrences\n.)3 for swap_first_third\n");
+  int option;
+  scanf("%d",&option);
+  link A,pos_list;
+  char clear;
+  clear=getchar();
+  A=build_list_of_ints();
+  clear=getchar();
+  if(option==1)
+  {
+  pos_list=build_list_of_ints();
+  printf("Testing sublist (for lists of ints).\n\n");
+  printf("original list A:");
+  print_list_horiz_pointer(A);
+
+
+  printf("List with positions pos_list:");
+  print_list_horiz(pos_list);
+
+  link res = sublist(A, pos_list);
+  destroy_list(pos_list);
+
+
+
+  printf("SUBLIST:");
+  print_list_horiz_pointer(res);
+  destroy_list(res);
+
+  printf("original list A:");
+  print_list_horiz_pointer(A);
+  destroy_list(A);
+}
+if(option==2)
+{
+  int value;
+  printf("\nEnter Deletion Value:-");
+  scanf("%d",&value);
+  printf("\n\n--------------------------------------\n");
+  printf("Test delete_occurrences (for lists of ints).\n\n");
+  printf("LIST A:");
+  //print_list_horiz(A);
+  print_list_horiz_pointer(A);
+
+  delete_occurrences(A,value);
+
+  printf("After calling delete_occurrences(A,7) (currently not implemented).\n");
+  printf("After you implement this function, list A (printed below) should not have any values of 7.\n");
+  //print_list_horiz(A);
+  print_list_horiz_pointer(A);
+
+  printf("\n----------  end test function -------------------\n");
+  destroy_list(A);
+
+}
+
 
 }
