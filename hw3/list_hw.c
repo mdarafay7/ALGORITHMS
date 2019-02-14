@@ -262,6 +262,17 @@ link result=NULL;
 link pos_list;
 int arr[1000];
 int pos[1000];
+int value;
+char clear;
+printf("\nIf you want to proceed into student tests enter 1 , if you want to exit enter 0\n>:");
+scanf("%d",&value);
+clear=getchar();
+if(value==0)
+{
+  exit(0);
+}
+else if(value==1)
+{
 //Tests for sub_list
 printf("\n===========================================\n");
 printf("\n       STUDENT TESTS FOR SUBLIST()            \n");
@@ -401,6 +412,119 @@ destroy_list(result);
 printf("\n================================================\n");
 printf("\n       STUDENT TESTING FOR delete_occurrences()           \n");
 printf("\n================================================\n");
+printf("\nTest delete_occurrences (for lists of ints).\n\n");
+//TEST CASE 9
+printf("\n\ndelete_occurences() TEST CASE: Normal DATA\n\n");
+arr[0]=15; arr[1]=100; arr[2]=7; arr[3]=5; arr[4]=100; arr[5]=7; arr[6]=30;
+A=array_2_list(arr,7);
+printf("LIST A:");
+print_list_horiz_pointer(A);
+delete_occurrences(A, 7);
+printf("After calling delete_occurrences(A,7)\n");
+printf("list A (printed below), After you implement this function.\n");
+print_list_horiz_pointer(A);
+printf("\n----------  end test function -------------------\n");
+destroy_list(A);
+//TEST CASE 10
+printf("\n\ndelete_occurences() TEST CASE: V Does NOT occur in A\n\n");
+arr[0]=15; arr[1]=100; arr[2]=7; arr[3]=5;
+A=array_2_list(arr,4);
+printf("LIST A:");
+print_list_horiz_pointer(A);
+delete_occurrences(A, 9);
+printf("After calling delete_occurrences(A,9)\n");
+printf("list A (printed below), After you implement this function.\n");
+print_list_horiz_pointer(A);
+printf("\n----------  end test function -------------------\n");
+destroy_list(A);
+//TEST CASE 11
+printf("\n\ndelete_occurences() TEST CASE: Repeated consecutive occurrences\n\n");
+arr[0]=15; arr[1]=7; arr[2]=7; arr[3]=5;
+A=array_2_list(arr,4);
+printf("LIST A:");
+print_list_horiz_pointer(A);
+delete_occurrences(A, 7);
+printf("After calling delete_occurrences(A,7)\n");
+printf("list A (printed below), After you implement this function.\n");
+print_list_horiz_pointer(A);
+printf("\n----------  end test function -------------------\n");
+destroy_list(A);
+//TEST CASE 12
+printf("\n\ndelete_occurences() TEST CASE: A has one item and that is V\n\n");
+arr[0]=7;
+A=array_2_list(arr,1);
+printf("LIST A:");
+print_list_horiz_pointer(A);
+delete_occurrences(A, 7);
+printf("After calling delete_occurrences(A,7)\n");
+printf("list A (printed below), After you implement this function.\n");
+print_list_horiz_pointer(A);
+printf("\n----------  end test function -------------------\n");
+destroy_list(A);
+//TEST CASE 13
+printf("\n\ndelete_occurences() TEST CASE: A has only items with value V in it\n\n");
+arr[0]=7; arr[1]=7; arr[2]=7;
+A=array_2_list(arr,3);
+printf("LIST A:");
+print_list_horiz_pointer(A);
+delete_occurrences(A, 7);
+printf("After calling delete_occurrences(A,7)\n");
+printf("list A (printed below), After you implement this function.\n");
+print_list_horiz_pointer(A);
+printf("\n----------  end test function -------------------\n");
+destroy_list(A);
+//TEST CASE 14
+printf("\n\ndelete_occurences() TEST CASE: A is NULL\n\n");
+printf("LIST A:");
+print_list_horiz_pointer(NULL);
+delete_occurrences(NULL, 7);
+printf("After calling delete_occurrences(A,7)\n");
+printf("list A (printed below), After you implement this function.\n");
+print_list_horiz_pointer(NULL);
+printf("\n----------  end test function -------------------\n");
+//TEST CASE 15
+printf("\n\ndelete_occurences() TEST CASE: A is empty\n\n");
+A=array_2_list(arr,0); // SETTING "A" as empty
+printf("LIST A:");
+print_list_horiz_pointer(A);
+delete_occurrences(A, 7);
+printf("After calling delete_occurrences(A,7)\n");
+printf("list A (printed below), After you implement this function.\n");
+print_list_horiz_pointer(A);
+printf("\n----------  end test function -------------------\n");
+destroy_list(A);
 
+printf("\n================================================\n");
+printf("\n       STUDENT TESTING FOR swap_first_third()           \n");
+printf("\n================================================\n");
+printf("Test swap_first_third (for lists of ints).\n\n");
+
+//TEST CASE 16
+printf("\n\nswap_first_third() TEST CASE: A only contains ONE item\n\n");
+arr[0]=7;
+A=array_2_list(arr,1);
+printf("LIST A:");
+print_list_horiz_pointer(A);
+swap_first_third(A);
+printf("After calling swap_first_third(A) (currently not implemented).\n");
+printf("After you implement this function, list A (printed below).\n");
+print_list_horiz_pointer(A);
+printf("\n----------  end test function -------------------\n");
+destroy_list(A);
+
+//TEST CASE 17
+printf("\n\nswap_first_third() TEST CASE: A only contains ONE item\n\n");
+arr[0]=3; arr[1]=7;
+A=array_2_list(arr,2);
+printf("LIST A:");
+print_list_horiz_pointer(A);
+swap_first_third(A);
+printf("After calling swap_first_third(A) (currently not implemented).\n");
+printf("After you implement this function, list A (printed below).\n");
+print_list_horiz_pointer(A);
+printf("\n----------  end test function -------------------\n");
+destroy_list(A);
+
+}
 
 }
