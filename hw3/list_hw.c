@@ -167,16 +167,15 @@ or any other helper function that you write here, in list_hw.c
 */
 
 link sublist(link A, link pos_list) {
+  if((A==NULL||pos_list==NULL)||(compute_length(A)==0||compute_length(pos_list)==0))
+  {
+    return NULL;
+  }
   link sub_list=new_list();
   link temp_sub_list=sub_list;
   link position_parser=pos_list->next;;
   link temp;
   int position;
-  if((A==NULL||pos_list==NULL)||(compute_length(A)==0||compute_length(pos_list)==0))
-  {
-    destroy_list(sub_list);
-    return NULL;
-  }
   while(position_parser!=NULL)
   {
     temp=A;
@@ -258,62 +257,150 @@ void delete_occurrences(link A, int V) {
 
 // Set-up and call your testing functions from this function.
 int run_student_tests() {
-  printf("\n Running function run_student_test.\n ");
-  printf("\n\n--------------------------------------\n");
-  printf("\nWhat Functionality Do You Want to Test ?:\n.)1 for Sublist\n.)2 for delete_occurrences\n.)3 for swap_first_third\n");
-  int option;
-  scanf("%d",&option);
-  link A,pos_list;
-  char clear;
-  clear=getchar();
-  A=build_list_of_ints();
-  clear=getchar();
-  if(option==1)
-  {
-  pos_list=build_list_of_ints();
-  printf("Testing sublist (for lists of ints).\n\n");
-  printf("original list A:");
-  print_list_horiz_pointer(A);
+link A;
+link result=NULL;
+link pos_list;
+int arr[1000];
+int pos[1000];
+//Tests for sub_list
+printf("\n===========================================\n");
+printf("\n       STUDENT TESTS FOR SUBLIST()            \n");
+printf("\n===========================================\n");
+//TEST CASE 1
+printf("\n\nTEST CASE: INDEX OUT OF BOUNDS\n\n");
+arr[0]=10; arr[1]=10; arr[2]=40; arr[3]=20;
+pos[0]=-7; pos[1]=3;
+A=array_2_list(arr,4);
+pos_list=array_2_list(pos,2);
+result=sublist(A,pos_list);
+printf("original list A:");
+print_list_horiz_pointer(A);
+printf("List with positions pos_list:");
+print_list_horiz(pos_list);
+printf("SUBLIST:");
+print_list_horiz_pointer(result);
+printf("original list A:");
+print_list_horiz_pointer(A);
+destroy_list(pos_list);
+destroy_list(A);
+//TEST CASE 2
+printf("\n\nSUBLIST TEST CASE: A is NULL\n\n");
+pos[0]=7; pos[1]=3;
+pos_list=array_2_list(pos,2);
+result=sublist(NULL,pos_list);
+printf("original list A:");
+print_list_horiz_pointer(NULL);
+printf("List with positions pos_list:");
+print_list_horiz(pos_list);
+printf("SUBLIST:");
+print_list_horiz_pointer(result);
+printf("original list A:");
+print_list_horiz_pointer(NULL);
+destroy_list(result);
+destroy_list(pos_list);
+//TEST CASE 3
+printf("\n\nSUBLIST TEST CASE: A is EMPTY\n\n");
+pos[0]=1; pos[1]=2;
+A=array_2_list(arr,0);// EMPTY LIST
+pos_list=array_2_list(pos,2);
+result=sublist(A,pos_list);
+printf("original list A:");
+print_list_horiz_pointer(A);
+printf("List with positions pos_list:");
+print_list_horiz(pos_list);
+printf("SUBLIST:");
+print_list_horiz_pointer(result);
+printf("original list A:");
+print_list_horiz_pointer(A);
+destroy_list(pos_list);
+destroy_list(A);
+//TEST CASE 4
+printf("\n\nSUBLIST TEST CASE: POS_LIST is EMPTY\n\n");
+arr[0]=1;arr[1]=2;
+A=array_2_list(arr,2);
+pos_list=array_2_list(pos,0);//EMPTY LIST
+result=sublist(A,pos_list);
+printf("original list A:");
+print_list_horiz_pointer(A);
+printf("List with positions pos_list:");
+print_list_horiz(pos_list);
+printf("SUBLIST:");
+print_list_horiz_pointer(result);
+printf("original list A:");
+print_list_horiz_pointer(A);
+destroy_list(A);
+//TEST CASE 5
+printf("\n\nSUBLIST TEST CASE: POS_LIST is NULL\n\n");
+A=array_2_list(arr,2);
+result=sublist(A,NULL); //PASSING NULL FOR POS_LIST
+printf("original list A:");
+print_list_horiz_pointer(A);
+printf("List with positions pos_list:");
+print_list_horiz(NULL);
+printf("SUBLIST:");
+print_list_horiz_pointer(result);
+printf("original list A:");
+print_list_horiz_pointer(A);
+destroy_list(A);
+destroy_list(pos_list);
+//TEST CASE 6
+printf("\n\nTEST CASE: A is not modified by the sublist()\n\n");
+arr[0]=15; arr[1]=100; arr[2]=7; arr[3]=5; arr[4]=100;
+pos[0]=3; pos[1]=0; pos[2]=2;
+A=array_2_list(arr,5);
+pos_list=array_2_list(pos,3);
+result=sublist(A,pos_list);
+printf("original list A:");
+print_list_horiz_pointer(A);
+printf("List with positions pos_list:");
+print_list_horiz(pos_list);
+printf("SUBLIST:");
+print_list_horiz_pointer(result);
+printf("original list A:");
+print_list_horiz_pointer(A);
+destroy_list(pos_list);
+destroy_list(A);
+destroy_list(result);
+//TEST CASE 7
+printf("\n\nTEST CASE: Normal DATA\n\n");
+arr[0]=15; arr[1]=100; arr[2]=7; arr[3]=5; arr[4]=100;
+pos[0]=3; pos[1]=0; pos[2]=6; pos[3]=4;
+A=array_2_list(arr,5);
+pos_list=array_2_list(pos,4);
+result=sublist(A,pos_list);
+printf("original list A:");
+print_list_horiz_pointer(A);
+printf("List with positions pos_list:");
+print_list_horiz(pos_list);
+printf("SUBLIST:");
+print_list_horiz_pointer(result);
+printf("original list A:");
+print_list_horiz_pointer(A);
+destroy_list(pos_list);
+destroy_list(A);
+destroy_list(result);
+//TEST CASE 8
+printf("\n\nTEST CASE: Normal DATA\n\n");
+arr[0]=5;
+pos[0]=0; pos[1]=0; pos[2]=0;
+A=array_2_list(arr,1);
+pos_list=array_2_list(pos,3);
+result=sublist(A,pos_list);
+printf("original list A:");
+print_list_horiz_pointer(A);
+printf("List with positions pos_list:");
+print_list_horiz(pos_list);
+printf("SUBLIST:");
+print_list_horiz_pointer(result);
+printf("original list A:");
+print_list_horiz_pointer(A);
+destroy_list(pos_list);
+destroy_list(A);
+destroy_list(result);
 
-
-  printf("List with positions pos_list:");
-  print_list_horiz(pos_list);
-
-  link res = sublist(A, pos_list);
-  destroy_list(pos_list);
-
-
-
-  printf("SUBLIST:");
-  print_list_horiz_pointer(res);
-  destroy_list(res);
-
-  printf("original list A:");
-  print_list_horiz_pointer(A);
-  destroy_list(A);
-}
-if(option==2)
-{
-  int value;
-  printf("\nEnter Deletion Value:-");
-  scanf("%d",&value);
-  printf("\n\n--------------------------------------\n");
-  printf("Test delete_occurrences (for lists of ints).\n\n");
-  printf("LIST A:");
-  //print_list_horiz(A);
-  print_list_horiz_pointer(A);
-
-  delete_occurrences(A,value);
-
-  printf("After calling delete_occurrences(A,7) (currently not implemented).\n");
-  printf("After you implement this function, list A (printed below) should not have any values of 7.\n");
-  //print_list_horiz(A);
-  print_list_horiz_pointer(A);
-
-  printf("\n----------  end test function -------------------\n");
-  destroy_list(A);
-
-}
+printf("\n================================================\n");
+printf("\n       STUDENT TESTING FOR delete_occurrences()           \n");
+printf("\n================================================\n");
 
 
 }
